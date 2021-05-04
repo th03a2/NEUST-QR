@@ -1,5 +1,4 @@
 import { getCurrentPlatform } from '../../containers/PlatformSwitcher/config';
-import { baguhin } from './../../talaan';
 
 const actions = {
   CHANGE_PLATFORM: 'CHANGE_PLATFORM',
@@ -10,7 +9,6 @@ const actions = {
     let auth = JSON.parse(localStorage.getItem('auth'));
     auth.currentApp = code;
     localStorage.setItem('auth', JSON.stringify(auth));
-    baguhin('users', auth._id, { currentApp: code }, false)
     return {
       type: actions.CHANGE_PLATFORM,
       selectedPlatform

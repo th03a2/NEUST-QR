@@ -5,7 +5,6 @@ import LayoutContent from '../../../../components/utility/layoutContent';
 import '../style.css';
 import Select, { SelectOption } from '../../../../components/uielements/select';
 import Input, { InputGroup } from '../../../../components/uielements/input';
-import { tanong, itala, tignan, listahan } from '../../../../talaan';
 
 export default class extends Component {
     constructor() {
@@ -34,15 +33,7 @@ export default class extends Component {
             if (data.user_id === this.auth._id) {
                 this.setState({ model: data, has_request: true })
             } else {
-                tanong('forbidden/attached/authority/levels').then(data => {
-                    let level_id = data[0]._id
-                    let year_level = data.map((model) => {
-                        return (
-                            <SelectOption key={`year-${model._id}`} value={model._id}>{model.fullname}</SelectOption>
-                        )
-                    })
-                    this.setState({ year_level, level_id })
-                })
+
             }
         })
     }
@@ -52,9 +43,7 @@ export default class extends Component {
         model[name] = value;
         if (name === 'level_id') {
             const params = { level: value }
-            listahan('sections', params).then(data => {
-                this.setState({ sections: [...data] })
-            })
+
         }
         this.setState({ model });
     };
@@ -62,7 +51,6 @@ export default class extends Component {
     handleSubmit = () => {
         let { model } = this.state;
         this.setState({ has_request: true });
-        itala(this.state.entity, model)
     }
 
     render() {

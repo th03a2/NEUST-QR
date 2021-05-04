@@ -6,7 +6,6 @@ import FlipMove from 'react-flip-move';
 import Toggle from './Toggle.js';
 import { SingleCardWrapper, SortableCardWrapper } from './shuffle.style';
 
-import { tanong } from '../../../../talaan.js';
 import axios from 'axios';
 import { MDBCol, MDBIcon, MDBIframe, MDBRow } from 'mdbreact';
 
@@ -103,10 +102,7 @@ class Shuffle extends Component {
         this.sortShuffle = this.sortShuffle.bind(this);
     }
     componentDidMount() {
-        tanong('newsfeeds', { batch: this.auth.school.batch._id }).then(datas => {
-            this.setState({ articles: [...datas] })
-            // console.log(this.state.articles);
-        })
+
     }
     toggleList() {
         this.setState({

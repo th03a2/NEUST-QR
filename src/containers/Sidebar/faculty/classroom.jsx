@@ -19,7 +19,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookOpen, faGlobeEurope, faUserLock, faUsers } from '@fortawesome/free-solid-svg-icons'
 
 
-import { tanong } from '../../../talaan';
 
 const SubMenu = Menu.SubMenu;
 const { Sider } = Layout;
@@ -63,43 +62,8 @@ class Sidebar extends Component {
   }
   componentDidMount() {
     let params = { 'faculty': this.auth._id }
-    tanong('classroom/advisories/active', params).then(data => {
-      if (Object.entries(data).length !== 0) {
-        localStorage.setItem('classroom', JSON.stringify(data));
-        let subjects = [];
-        if (data.schedule_info && data.schedule_info.length !== 0) {
-          subjects = data.schedule_info.map((schedule) => {
-            return {
-              id: schedule.subject_id,
-              title: schedule.subject,
-              prof_id: schedule.faculty_id,
-              room: schedule.room_id
-            };
-          })
-        }
 
-        localStorage.setItem('subjects', JSON.stringify(subjects));
-        this.setState({ models: [...data], has_class: true })
-      } else {
-        this.setState({ has_class: false })
-      }
-    })
-    tanong('loads/active', params).then(data => {
-      if (Object.entries(data).length !== 0) {
-        const { customizedTheme } = this.props;
-        const url = stripTrailingSlash(this.props.url);
-        const submenuStyle = { backgroundColor: 'rgba(0,0,0,0.3)', color: customizedTheme.textColor };
-        const submenuColor = { color: customizedTheme.textColor };
-        let optionSections = data.schedules.map((schedule, index) => {
-          return <Menu.Item style={submenuStyle} key={`subjects-${index}`}>
-            <Link style={submenuColor} to={`${url}/cr/${schedule.classroom_id}/sections/${schedule.subject_id}/subject`}>{schedule.name} ({schedule.code})</Link>
-          </Menu.Item>
-        })
-        this.setState({ optionSections })
-      } else {
 
-      }
-    })
   }
   handleClick(e) {
     this.props.changeCurrent([e.key]);

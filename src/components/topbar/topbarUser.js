@@ -5,7 +5,6 @@ import authAction from '../../redux/auth/actions';
 import TopbarDropdownWrapper from './topbarDropdown.style';
 import { Link } from 'react-router-dom';
 import Default from '../../image/defaults/default.png'
-import axios from 'axios';
 
 const { logout } = authAction;
 
@@ -39,7 +38,7 @@ class TopbarUser extends Component {
       </TopbarDropdownWrapper>
     );
 
-    const profile = `${axios.defaults.baseURL}storage/Users/${this.state.auth.email}/${this.state.auth.profile}`
+    // const profile = `${axios.defaults.baseURL}storage/Users/${this.state.auth.email}/${this.state.auth.profile}`
 
     return (
       <Popover
@@ -56,7 +55,7 @@ class TopbarUser extends Component {
               alt="user"
               width="49"
               height="49"
-              src={profile}
+              // src={profile}
               className='rounded-circle img-responsive mx-auto'
               onError={
                 (e) => {

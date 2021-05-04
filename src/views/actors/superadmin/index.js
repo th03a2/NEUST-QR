@@ -11,7 +11,6 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import Popover from '../../../components/uielements/popover';
-import { tanong, itala, baguhin, itago } from '../../../talaan';
 import Card from './card';
 import { SelectOption } from '../../../components/uielements/select';
 // import { counter } from '@fortawesome/fontawesome-svg-core';
@@ -33,40 +32,12 @@ export default class extends Component {
     componentDidMount() { this.onSearch() }
 
     onSearch = (key) => {
-        tanong(`users/promotion`).then(datas => {
-            let users = datas.map(data => {
-                return <SelectOption value={data._id}>{data.fullname}</SelectOption>
-            })
-            this.setState({ users })
-        })
 
-        let params = { school: this.state.auth.school_id, role: '6028f7713e320000f40026be' };
-        if (key) {
-            let p = key.split(',');
-            if (p.length > 1) {
-                params['lname'] = p[0].trim();
-                params['key'] = p[1].trim();
-            } else {
-                params['key'] = key
-            }
-        }
-        tanong(`${this.state.entity}/superadmin`, params).then(data => { this.setState({ models: [...data] }) })
     }
     onExhibit = (i) => {
         let model = this.state.models[i];
         model.role_id = '6028f7713e320000f40026bf'
-        baguhin(
-            this.state.entity,
-            model._id,
-            model,
-        )
-            .then(
-                data => {
-                    this.state.users.push(<SelectOption value={data._id}>{data.fullname}</SelectOption>)
-                    let models = this.state.models;
-                    models.splice(i, 1);
-                    this.setState({ models });
-                });
+
     }
     newExhibit = () => {
         this.setState({
@@ -85,42 +56,14 @@ export default class extends Component {
     };
 
     onSave = async () => {
-        await itala(this.state.entity, this.state.model)
-            .then(
-                data => {
-                    let { models } = this.state;
-                    models.push(data);
-                    this.setState({ models: models });
-                });
-        tanong(`users/promotion`).then(datas => {
-            let users = datas.map(data => {
-                return <SelectOption value={data._id}>{data.fullname}</SelectOption>
-            })
-            this.setState({ users })
-        })
+
+
     }
     onUpdate = () => {
-        baguhin(
-            this.state.entity,
-            this.state.model._id,
-            this.state.model
-        )
-            .then(
-                data => {
-                    // console.log(data);
-                    // this.state.users.push(<SelectOption value={data._id}>{data.fullname}</SelectOption>)
-                    let models = this.state.models;
-                    models.splice(this.state.activeIndex, 1);
-                    this.setState({ models });
-                });
+
     }
     onDelete = async (i, pk) => {
-        let has_removed = await itago(this.state.entity, pk)
-        if (has_removed) {
-            let models = this.state.models;
-            models.splice(i, 1);
-            this.setState({ models });
-        }
+
     }
     switchExhibitStatus() { this.setState({ exhibit: !this.state.exhibit }) }
     handleSearchReset = (key) => this.onSearch(key)

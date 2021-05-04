@@ -7,7 +7,6 @@ import WithDirection from '../../../config/withDirection';
 import Button from '../../../components/uielements/button';
 import { Col } from 'antd';
 import Select, { SelectOption } from '../../../components/uielements/select';
-import { listahan } from '../../../talaan';
 
 
 const isoModal = ModalStyle(Modals);
@@ -24,14 +23,7 @@ export default class Card extends Component {
         };
     }
     componentDidMount() {
-        listahan('levels').then(data => {
-            let list = data.map((model) => {
-                return (
-                    <Option value={model._id}>{model.name}</Option>
-                )
-            })
-            this.setState({ levels: list })
-        })
+
     }
     onChange = e => { this.setState({ [e.target.name]: e.target.value }) }
     handleClose = () => this.props.onClose()

@@ -7,7 +7,6 @@ import Tabs, { TabPane } from '../../../components/uielements/tabs';
 import './register.css'
 import { Popover } from 'antd';
 import Default from '../../../image/defaults/default.png'
-import axios from 'axios';
 import * as Swal from 'sweetalert2';
 import Address from './address';
 
@@ -141,21 +140,7 @@ class Register extends React.Component {
             model.address.region = model.address.region.split('.')[0];
             model.address.province = model.address.province.split('.')[0];
             model.address.municipality = model.address.municipality.split('.')[0];
-            axios.post('api/auth/register', model).then(() => {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Your account has been saved',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                this.closeModal('submit')
-            }).catch(err => {
-                this.setState({
-                    message: err.response.data ? err.response.data.message : null,
-                    submit: false
-                });
-            })
+
         }
     }
 
@@ -171,11 +156,7 @@ class Register extends React.Component {
             form.name = `${name || this.state.model.fname}.${files.name.split('.').pop()}`
             form.url = `Users/${this.state.model.email}`;
             this.setState({ form });
-            axios.post('api/auth/upload', this.state.form, {
-                onUploadProgress: progressEvent => {
-                    console.log('Upload progress: ' + Math.round(progressEvent.loaded / progressEvent.total * 100) + '%');
-                }
-            })
+
         };
     }
 
@@ -214,15 +195,7 @@ class Register extends React.Component {
                 this.setState({ message })
             }
             let params = { [key]: model[key] };
-            return (axios.post('api/auth/exist', params).then(() => {
-                this.setState({
-                    message: undefined
-                })
-            }).catch(err => {
-                this.setState({
-                    message: err.response.data ? err.response.data.message : null
-                });
-            }))
+
         } else if (key === 'password') {
             if (model.password.length < 8) {
                 this.setState({ message: 'Password must at least be 8 letters or higher.' })

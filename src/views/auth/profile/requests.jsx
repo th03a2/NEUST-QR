@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBadge } from 'mdbreact';
-import { hanapin } from '../../../talaan';
 import * as swal from 'sweetalert2';
 
 export default class extends Component {

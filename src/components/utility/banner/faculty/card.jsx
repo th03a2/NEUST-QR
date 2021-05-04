@@ -7,7 +7,6 @@ import Button from '../../../../components/uielements/button';
 import Select, { SelectOption } from '../../../../components/uielements/select';
 import { Col } from 'antd';
 
-import { listahan } from '../../../../talaan';
 
 const isoModal = ModalStyle(Modals);
 const Modal = WithDirection(isoModal);
@@ -23,8 +22,7 @@ export default class Card extends Component {
     }
     SelectChangeHandler = (name, value) => {
         const params = { level: value }
-        listahan('sections', params).then(data => this.setState({ dep: [...data] }))
-        this.setState({ model });
+
     };
     onChange = e => { this.setState({ [e.target.name]: e.target.value }) }
     handleClose = () => this.props.onClose()

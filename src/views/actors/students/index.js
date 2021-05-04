@@ -14,7 +14,6 @@ import Popover from '../../../components/uielements/popover';
 
 
 
-import { tanong, itala, baguhin, itago } from '../../../talaan';
 import Card from './card';
 // import { counter } from '@fortawesome/fontawesome-svg-core';
 
@@ -46,7 +45,7 @@ export default class extends Component {
                 params['key'] = key
             }
         }
-        tanong(this.state.entity, params).then(data => { this.setState({ models: [...data] }) })
+        (this.state.entity, params).then(data => { this.setState({ models: [...data] }) })
     }
     onExhibit = (i) => {
         let model = this.state.models[i];
@@ -76,34 +75,13 @@ export default class extends Component {
     };
 
     onSave = () => {
-        itala(this.state.entity, this.state.model)
-            .then(
-                data => {
-                    let { models } = this.state;
-                    models.push(data);
-                    this.setState({ models: models });
-                });
+
     }
     onUpdate = () => {
-        baguhin(
-            this.state.entity,
-            this.state.model._id,
-            this.state.model
-        )
-            .then(
-                data => {
-                    let { models } = this.state;
-                    models[this.state.activeIndex] = data;
-                    this.setState({ models: models })
-                });
+
     }
     onDelete = async (i, pk) => {
-        let has_removed = await itago(this.state.entity, pk)
-        if (has_removed) {
-            let models = this.state.models;
-            models.splice(i, 1);
-            this.setState({ models });
-        }
+
     }
     switchExhibitStatus() { this.setState({ exhibit: !this.state.exhibit }) }
     handleSearchReset = (key) => this.onSearch(key)

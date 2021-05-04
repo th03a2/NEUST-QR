@@ -9,7 +9,6 @@ import { faEye, faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icon
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 import Popover from '../../../components/uielements/popover';
 
-import { tanong, itala, baguhin, itago } from '../../../talaan';
 import Card from './card.jsx';
 import Profile from './profile.jsx';
 
@@ -36,9 +35,7 @@ export default class extends Component {
     }
     componentWillUnmount() { this.key.removeEventListener('keyup', this.onSearch); }
     onSearch = () => {
-        tanong(this.state.url, this.key.value).then(data => {
-            this.setState({ models: [...data] }, () => console.log('starts here'))
-        })
+
     }
     onExhibit = (i) => {
         let model = this.state.models[i];
@@ -76,34 +73,13 @@ export default class extends Component {
     onSave = () => {
         console.log(this.state.model);
 
-        itala(this.state.entity, this.state.model)
-            .then(
-                data => {
-                    let { models } = this.state;
-                    models.push(data);
-                    this.setState({ models: models });
-                });
+
     }
     onUpdate = () => {
-        baguhin(
-            this.state.entity,
-            this.state.model._id,
-            this.state.model
-        )
-            .then(
-                data => {
-                    let { models } = this.state;
-                    models[this.state.activeIndex] = data;
-                    this.setState({ models: models })
-                });
+
     }
     onDelete = async (i, pk) => {
-        let has_removed = await itago(this.state.entity, pk)
-        if (has_removed) {
-            let models = this.state.models;
-            models.splice(i, 1);
-            this.setState({ models });
-        }
+
     }
     switchExhibitStatus = () => { this.setState({ exhibit: !this.state.exhibit }) }
     handleSearchReset(key) { this.onSearch(key) }

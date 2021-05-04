@@ -12,7 +12,6 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import Popover from '../../../components/uielements/popover';
 import Select, { SelectOption } from '../../../components/uielements/select';
-import { tanong, itala, baguhin, itago } from '../../../talaan';
 import Card from './card';
 
 
@@ -34,23 +33,12 @@ export default class extends Component {
     }
     componentDidMount() {
         let params = { school: this.state.auth.school_id };
-        tanong(this.state.entity, params).then(datas => {
-            this.setState({ models: [...datas] })
-            let distictLevel = [...new Set(datas.map(data => data.level_id))]
-            distictLevel.sort((a, b) => { return Number(a) - Number(b); }) // Ascending
-            let optionLevel = distictLevel.map(level => {
-                return <SelectOption key={level} value={level}>Grade {level - 3}</SelectOption>;
-            })
-            let level = distictLevel[0];
-            this.setState({ optionLevel, level })
-        })
+
     }
 
     onSearch = (key) => {
         let params = { school: this.state.auth.school_id };
-        tanong(this.state.entity, params).then(data => {
-            this.setState({ models: [...data] })
-        })
+
     }
     onExhibit = (i) => {
         let model = this.state.models[i];
@@ -80,34 +68,13 @@ export default class extends Component {
     };
 
     onSave = () => {
-        itala(this.state.entity, this.state.model)
-            .then(
-                data => {
-                    let { models } = this.state;
-                    models.push(data);
-                    this.setState({ models: models });
-                });
+
     }
     onUpdate = () => {
-        baguhin(
-            this.state.entity,
-            this.state.model._id,
-            this.state.model
-        )
-            .then(
-                data => {
-                    let { models } = this.state;
-                    models[this.state.activeIndex] = data;
-                    this.setState({ models: models })
-                });
+
     }
     onDelete = async (i, pk) => {
-        let has_removed = await itago(this.state.entity, pk)
-        if (has_removed) {
-            let models = this.state.models;
-            models.splice(i, 1);
-            this.setState({ models });
-        }
+
     }
     switchExhibitStatus() { this.setState({ exhibit: !this.state.exhibit }) }
     handleSearchReset = (key) => this.onSearch(key)

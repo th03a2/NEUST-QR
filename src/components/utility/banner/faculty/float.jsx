@@ -5,7 +5,6 @@ import LayoutContent from '../../../../components/utility/layoutContent';
 import '../style.css';
 import Select, { SelectOption } from '../../../../components/uielements/select';
 import Input, { InputGroup } from '../../../../components/uielements/input';
-import { itala, tignan, listahan } from '../../../../talaan';
 
 export default class extends Component {
     constructor() {
@@ -33,9 +32,7 @@ export default class extends Component {
             if (data.student_id === this.auth._id) {
                 this.setState({ model: data, has_request: true })
             } else {
-                listahan('departments').then(data => {
-                    this.setState({ dep: [...data] })
-                })
+
             }
         })
     }
@@ -44,7 +41,6 @@ export default class extends Component {
     handleSubmit = () => {
         let { model } = this.state;
         this.setState({ has_request: true });
-        itala(this.state.entity, model)
     }
 
     render() {

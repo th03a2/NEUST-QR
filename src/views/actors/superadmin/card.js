@@ -6,7 +6,6 @@ import ModalStyle from '../../../components/modal/modal.style';
 import WithDirection from '../../../config/withDirection';
 import Button from '../../../components/uielements/button';
 import { Col } from 'antd';
-import { listahan } from '../../../talaan';
 import Select, { SelectOption } from '../../../components/uielements/select';
 
 
@@ -24,19 +23,7 @@ export default class Card extends Component {
         };
     }
     componentDidMount() {
-        listahan('roles', { name: this.props.role }).then(roles => {
-            let access = roles.map(role => {
-                return <SelectOption value={role._id}>{role.display_name}</SelectOption>
-            })
-            this.setState({ roles: access })
-        })
-        listahan('schools/details').then(models => {
-            console.log(models);
-            let schools = models.map(school => {
-                return <SelectOption value={school._id}>{school.name}</SelectOption>
-            })
-            this.setState({ schools })
-        })
+
     }
     onChange = e => { this.setState({ [e.target.name]: e.target.value }) }
     handleClose = () => this.props.onClose()

@@ -7,7 +7,6 @@ import Button from '../../../../components/uielements/button';
 import Select, { SelectOption } from '../../../../components/uielements/select';
 import { Col } from 'antd';
 
-import { listahan } from '../../../../talaan';
 
 const isoModal = ModalStyle(Modals);
 const Modal = WithDirection(isoModal);
@@ -26,7 +25,6 @@ export default class Card extends Component {
         model[name] = value;
         if (name === 'level_id') {
             const params = { level: value }
-            listahan('sections', params).then(data => this.setState({ sections: [...data] }))
         }
         this.setState({ model });
     };
